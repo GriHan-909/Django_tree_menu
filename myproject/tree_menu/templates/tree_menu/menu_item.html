@@ -1,0 +1,16 @@
+{% with item=node.item children=node.children %}
+    <li>
+        <a href="{{ item.get_absolute_url }}"
+           class="{% if item.id in active_branch %}active{% endif %}">
+            {{ item.title }}
+        </a>
+
+        {% if children and item.id in active_branch %}
+            <ul>
+                {% for child in children %}
+                    {% include "tree_menu/menu_item.html" with node=child active_branch=active_branch %}
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </li>
+{% endwith %}
